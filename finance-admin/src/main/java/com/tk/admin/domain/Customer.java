@@ -26,14 +26,20 @@ public class Customer {
     /**
      * 客户名称
      */
-    @TableField(value = "name")
-    private String name;
+    @TableField(value = "role_name")
+    private String roleName;
 
     /**
-     * 别名
+     * 登录账户
      */
-    @TableField(value = "alias")
-    private String alias;
+    @TableField(value = "login_in")
+    private String loginIn;
+
+    /**
+     * 登录密码
+     */
+    @TableField(value = "password")
+    private String password;
 
     /**
      * 手机号码

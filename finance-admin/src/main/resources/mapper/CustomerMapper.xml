@@ -3,8 +3,9 @@
 <mapper namespace="com.tk.admin.mapper.CustomerMapper">
   <resultMap id="BaseResultMap" type="com.tk.admin.domain.Customer">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="login_in" jdbcType="VARCHAR" property="loginIn" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="position" jdbcType="VARCHAR" property="position" />
@@ -22,7 +23,7 @@
     <result column="last_date" jdbcType="TIMESTAMP" property="lastDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, alias, mobile, address, position, quota, remark, member_id, finance_no, province,
+    id, role_name, login_in, password, mobile, address, position, quota, remark, member_id, finance_no, province,
     city, region, status, initial_value, create_user, create_date, last_user, last_date
   </sql>
 </mapper>
