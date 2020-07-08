@@ -11,8 +11,9 @@
     <result column="quota" jdbcType="DOUBLE" property="quota" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="member_id" jdbcType="BIGINT" property="memberId" />
-    <result column="finance_no" jdbcType="BIGINT" property="financeNo" />
-    <result column="region_id" jdbcType="INTEGER" property="regionId" />
+    <result column="province" jdbcType="INTEGER" property="province" />
+    <result column="city" jdbcType="INTEGER" property="city" />
+    <result column="region" jdbcType="INTEGER" property="region" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="initial_value" jdbcType="VARCHAR" property="initialValue" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
@@ -21,8 +22,8 @@
     <result column="last_date" jdbcType="TIMESTAMP" property="lastDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, alias, mobile, address, position, quota, remark, member_id, finance_no, 
-    region_id, status, initial_value, create_user, create_date, last_user, last_date
+    id, name, alias, mobile, address, position, quota, remark, member_id, finance_no, province,
+    city, region, status, initial_value, create_user, create_date, last_user, last_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

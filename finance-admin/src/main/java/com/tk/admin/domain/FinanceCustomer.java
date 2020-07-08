@@ -1,11 +1,12 @@
-package com.tk.mbg.entity;
+package com.tk.admin.domain;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.util.Date;
-import javax.persistence.Id;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
+
+import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * f_finance_coustomer

@@ -64,7 +64,7 @@
         <!-- tableName：表名 -->
         <!-- 生成全部的表   tableName="%" -->
         <!-- domainObjectName：生成的实体类名，没有指定，则根据表名来生成 -->
-        <table tableName="f_finance_coustomer" domainObjectName="FinanceCustomer" enableCountByExample="false"
+        <table tableName="f_fund_customer" domainObjectName="FundCustomer" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"

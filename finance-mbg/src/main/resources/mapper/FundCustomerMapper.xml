@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tk.mbg.dao.FundCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.tk.mbg.entity.FundCustomer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="fund_id" jdbcType="INTEGER" property="fundId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="last_user" jdbcType="INTEGER" property="lastUser" />
+    <result column="last_date" jdbcType="TIMESTAMP" property="lastDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, fund_id, status, create_user, create_date, last_user, last_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from f_fund_customer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from f_fund_customer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tk.mbg.entity.FundCustomer">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_fund_customer (id, customer_id, fund_id, 
+      status, create_user, create_date, 
+      last_user, last_date)
+    values (#{id,jdbcType=BIGINT}, #{customerId,jdbcType=INTEGER}, #{fundId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{lastUser,jdbcType=INTEGER}, #{lastDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tk.mbg.entity.FundCustomer">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into f_fund_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="fundId != null">
+        fund_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="lastUser != null">
+        last_user,
+      </if>
+      <if test="lastDate != null">
+        last_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="fundId != null">
+        #{fundId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null">
+        #{lastUser,jdbcType=INTEGER},
+      </if>
+      <if test="lastDate != null">
+        #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tk.mbg.entity.FundCustomer">
+    update f_fund_customer
+    <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="fundId != null">
+        fund_id = #{fundId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUser != null">
+        last_user = #{lastUser,jdbcType=INTEGER},
+      </if>
+      <if test="lastDate != null">
+        last_date = #{lastDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tk.mbg.entity.FundCustomer">
+    update f_fund_customer
+    set customer_id = #{customerId,jdbcType=INTEGER},
+      fund_id = #{fundId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      last_user = #{lastUser,jdbcType=INTEGER},
+      last_date = #{lastDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

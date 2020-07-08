@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.tk.mbg.entity.FinanceCustomer">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="fund_id" jdbcType="INTEGER" property="fundId" />
     <result column="amount" jdbcType="DOUBLE" property="amount" />
     <result column="arrears" jdbcType="DOUBLE" property="arrears" />
     <result column="total_arrears" jdbcType="DOUBLE" property="totalArrears" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="bank_id" jdbcType="BIGINT" property="bankId" />
     <result column="type" jdbcType="BIT" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
@@ -17,7 +18,7 @@
     <result column="last_date" jdbcType="TIMESTAMP" property="lastDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, order_no, amount, arrears, total_arrears, remark, bank_id, type, status, create_user, 
-    create_date, last_user, last_date
+    id, order_no, customer_id, fund_id, amount, arrears, total_arrears, remark, type,
+    status, create_user, create_date, last_user, last_date
   </sql>
 </mapper>
