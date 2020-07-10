@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.tk.common</groupId>
+        <groupId>com.tk.finance</groupId>
         <artifactId>tk-finance</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
