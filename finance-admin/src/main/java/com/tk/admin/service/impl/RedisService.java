@@ -8,10 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 /**
  * @program: tk-finance
@@ -19,15 +21,13 @@ import org.springframework.util.CollectionUtils;
  * @author: kzc
  * @create: 2020-07-08 18:50
  **/
+@Service
 public class RedisService {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final RedisTemplate<String, Object> redisTemplate;
-
-    public RedisService(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 指定缓存失效时间
@@ -145,7 +145,7 @@ public class RedisService {
      * 递增
      *
      * @param key 键
-     * @param by  要增加几(大于0)
+     * @param delta  要增加几(大于0)
      * @return
      */
     public long incr(String key, long delta) {
@@ -159,7 +159,7 @@ public class RedisService {
      * 递减
      *
      * @param key 键
-     * @param by  要减少几(小于0)
+     * @param delta  要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta) {
@@ -375,8 +375,9 @@ public class RedisService {
     public long sSetAndTime(String key, long time, Object... values) {
         try {
             Long count = redisTemplate.opsForSet().add(key, values);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return count;
         } catch (Exception e) {
             log.error("redis error: ", e);
@@ -493,8 +494,9 @@ public class RedisService {
     public boolean lSet(String key, Object value, long time) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
-            if (time > 0)
+            if (time > 0){
                 expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             log.error("redis error: ", e);
@@ -507,7 +509,6 @@ public class RedisService {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
      * @return
      */
     public boolean lSet(String key, List<Object> value) {
@@ -531,8 +532,9 @@ public class RedisService {
     public boolean lSet(String key, List<Object> value, long time) {
         try {
             redisTemplate.opsForList().rightPushAll(key, value);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             log.error("redis error: ", e);
@@ -587,8 +589,9 @@ public class RedisService {
     public boolean zadd(String key, Object member, double score, long time) {
         try {
             redisTemplate.opsForZSet().add(key, member, score);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             log.error("redis error: ", e);
@@ -649,8 +652,5 @@ public class RedisService {
             log.error("redis error: ", e);
             return null;
         }
-    }
-
-    public void setRedisTemplate(RedisTemplate redisTemplate) {
     }
 }

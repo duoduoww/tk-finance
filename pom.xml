@@ -12,6 +12,7 @@
     <artifactId>tk-finance</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>tk-finance</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
