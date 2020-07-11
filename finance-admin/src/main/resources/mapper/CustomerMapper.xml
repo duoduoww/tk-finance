@@ -22,8 +22,18 @@
     <result column="last_user" jdbcType="INTEGER" property="lastUser" />
     <result column="last_date" jdbcType="TIMESTAMP" property="lastDate" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, role_name, login_in, password, mobile, address, position, quota, remark, member_id, finance_no, province,
     city, region, status, initial_value, create_user, create_date, last_user, last_date
   </sql>
+
+  <select id="queryProductList" resultMap="BaseResultMap">
+    select * from f_customer
+    <where>
+      <if test="memberId > 0"> and member_id = #{memberId}</if>
+      <if test="search != null and search != ''"> and role_name like CONCAT('%',#{search},'%')</if>
+    </where>
+  </select>
+
 </mapper>

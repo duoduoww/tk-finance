@@ -64,6 +64,14 @@ public class Fund {
     @TableField(value = "last_date")
     private Date lastDate;
 
+
+    public Fund(){}
+
+    public Fund(String fundNo, String fundName){
+        this.fundNo = fundNo;
+        this.fundName = fundName;
+    }
+
     public Integer getId() {
         return id;
     }
