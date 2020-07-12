@@ -5,6 +5,7 @@ import com.tk.admin.mapper.FundMapper;
 import com.tk.admin.service.FundService;
 import com.tk.common.result.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author: kzc
  * @create: 2020-07-08 16:50
  **/
+@Service
 public class FundServiceImpl implements FundService {
 
     @Autowired

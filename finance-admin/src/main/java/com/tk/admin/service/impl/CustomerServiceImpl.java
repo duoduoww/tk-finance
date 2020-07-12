@@ -1,16 +1,18 @@
 package com.tk.admin.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tk.admin.domain.Customer;
 import com.tk.admin.dto.CustomerParam;
 import com.tk.admin.mapper.CustomerMapper;
 import com.tk.admin.service.CustomerService;
+import com.tk.admin.util.RedisUtil;
 import com.tk.common.result.CommonResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author kzc
@@ -39,6 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
         for (int i = 0; i < 6; i++ ) {
             sb.append(ran.nextInt(10));
         }
+        RedisUtil.set(mobile,sb.toString(),300);
         return CommonResult.success(sb.toString());
     }
 
