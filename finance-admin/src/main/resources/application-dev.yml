@@ -52,16 +52,20 @@ spring:
         max-wait: -1
         max-idle: 500
         min-idle: 0
-    lettuce:
-      shutdown-timeout: 0
+        time-between-eviction-runs:  100
 
 
 
 # 设置关联的表名
 mybatis-plus:
   global-config:
-    db-config:
-      table-prefix: f_
+    db-column-underline: false
+  #  配置mapper xml 文件所在路径
+  mapper-locations: classpath*:com/arrange/mini/mapper/**/*.xml
+  # 配置映射类所在包名
+  type-aliases-package: com.arrange.mini.mapper
+  configuration:
+    use-actual-param-name: false
 
 logging:
   level:

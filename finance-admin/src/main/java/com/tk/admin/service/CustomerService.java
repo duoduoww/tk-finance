@@ -18,6 +18,8 @@ public interface CustomerService {
      */
     CommonResult<Object> signIn(String mobile, String name, String pwd, String alias, Integer code);
 
+    CommonResult<Object> signIn(CustomerParam param);
+
     /**
      * 手机号验证码
      * @param mobile 手机号

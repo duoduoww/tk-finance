@@ -1,7 +1,9 @@
 package com.tk.admin.domain;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
@@ -21,6 +23,7 @@ public class CustomerOperationLog {
      */
     @Id
     @TableField(value = "id")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**

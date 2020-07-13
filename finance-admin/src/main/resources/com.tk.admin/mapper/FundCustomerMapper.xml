@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tk.admin.mapper.FundCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.tk.admin.domain.FundCustomer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="fund_id" jdbcType="INTEGER" property="fundId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="last_user" jdbcType="INTEGER" property="lastUser" />
+    <result column="last_date" jdbcType="TIMESTAMP" property="lastDate" />
+  </resultMap>
+
+  <resultMap id="fundCustomerResultMap" type="com.tk.admin.dto.FundCustomerResult" extends="BaseResultMap">
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="quota" jdbcType="DOUBLE" property="quota" />
+    <result column="fund_no" jdbcType="VARCHAR" property="fundNo" />
+    <result column="fund_name" jdbcType="VARCHAR" property="fundName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, customer_id, fund_id, status, create_user, create_date, last_user, last_date
+  </sql>
+  
+  <select id="queryFundCustomrList" resultMap="BaseResultMap">
+    select fc.*,c.role_name,c.quota,fund_no,f.fund_name from f_fund_customer fc
+    left join f_customer c on fc.customer_id = c.id
+    left join f_fund f on fc.fund_id = f.id
+    <where>
+      <if test="fundId > 0">
+        and fc.fund_id = #{fundId}
+      </if>
+      <if test="customerId > 0">
+        and fc.customer_id = #{customerId}
+      </if>
+      <if test="search != null and search != ''">
+        and (f.fund_name like CONCAT('%',#{search},'%')
+        or f.fund_no like CONCAT('%',#{search},'%')
+        or c.role_name like CONCAT('%',#{search},'%'))
+      </if>
+    </where>
+  </select>
+
+</mapper>

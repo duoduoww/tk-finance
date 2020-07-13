@@ -1,7 +1,9 @@
 package com.tk.admin.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.tk.admin.dto.CustomerParam;
 import com.tk.admin.service.CustomerService;
+import com.tk.admin.util.PatternUtil;
 import com.tk.common.result.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
-
 /**
  * @author kzc
  */
@@ -25,9 +26,9 @@ public class CustomerController {
     @Resource
     private CustomerService customerService;
 
-    /**
+   /* *//**
      * 注册  创建用户
-     */
+     *//*
     @PostMapping("/signIn")
     @ApiOperation(value = "创建用户")
     @ApiImplicitParams({
@@ -42,13 +43,32 @@ public class CustomerController {
 
         return customerService.signIn(mobile, name, pwd, alias, code);
     }
+*/
+
+    /**
+     * 注册  创建用户
+     * @return 是否成功
+     */
+    @PostMapping("/signIn")
+    @ApiOperation(value = "创建用户")
+    @ResponseBody
+    public CommonResult<Object> signIn(@ModelAttribute CustomerParam param){
+
+        return customerService.signIn(param);
+    }
 
     @GetMapping("/phoneCode")
     @ApiOperation(value = "获取手机验证码")
-    @ApiImplicitParam(name = "mobile",value = "手机电话",required = true)
-    @ResponseBody
-    public CommonResult<String> phoneCode(String mobile){
-
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "mobile", value = "手机电话", required = true, paramType = "query")
+    })
+    public CommonResult<String> phoneCode(@RequestParam String mobile){
+        if(StringUtils.isEmpty(mobile)){
+            return CommonResult.failed("手机号不能为空");
+        }
+        if(!PatternUtil.isMobile(mobile)){
+            return CommonResult.failed("请填写正确手机号");
+        }
         return customerService.phoneCode(mobile);
     }
 
@@ -64,10 +84,10 @@ public class CustomerController {
     @GetMapping("/customerList")
     @ApiOperation(value = "客户列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "mobile", value = "负责人id", required = true),
-            @ApiImplicitParam(name = "search", value = "search", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "pageNo", value = "第几页", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "pageSize", value = "每页行数", required = false, paramType = "query")
+            @ApiImplicitParam(name = "mobile", value = "负责人id", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "search", paramType = "query"),
+            @ApiImplicitParam(name = "pageNo", value = "第几页", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "每页行数", paramType = "query")
     })
     @ResponseBody
     public CommonResult<String> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize){

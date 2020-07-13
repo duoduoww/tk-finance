@@ -1,11 +1,14 @@
 package com.tk.admin.domain;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
 
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,12 +17,13 @@ import java.util.Date;
 @TableName(value = "f_fund_customer")
 @Alias("fundCustomer")
 @Data
-public class FundCustomer {
+public class FundCustomer implements Serializable {
     /**
      * 主键
      */
     @Id
     @TableField(value = "id")
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**

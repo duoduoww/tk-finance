@@ -17,4 +17,6 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 
     List<Customer> queryProductList(Pagination page, @Param("memberId") Integer memberId, @Param("search")  String search);
 
+    String checkName(@Param("loginIn") String loginIn);
+
 }

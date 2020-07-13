@@ -36,4 +36,9 @@
     </where>
   </select>
 
+  <select id="checkName" resultType="string">
+    select login_in from f_customer where login_in = #{loginIn}
+    limit 1
+  </select>
+
 </mapper>

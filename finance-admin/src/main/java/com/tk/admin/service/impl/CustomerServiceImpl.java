@@ -1,16 +1,17 @@
 package com.tk.admin.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.tk.admin.domain.Customer;
 import com.tk.admin.dto.CustomerParam;
 import com.tk.admin.mapper.CustomerMapper;
 import com.tk.admin.service.CustomerService;
-import com.tk.admin.util.RedisUtil;
+import com.tk.admin.util.AESUtil;
+import com.tk.admin.util.MyRedisUtils;
 import com.tk.common.result.CommonResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -18,18 +19,44 @@ import java.util.*;
  * @author kzc
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerMapper customerMapper;
 
+    @Autowired
+    private MyRedisUtils.redisString redisString;
+
     @Override
     public CommonResult<Object> signIn(String mobile, String loginIn, String pwd, String roleName, Integer code) {
+        String rCode = (String)redisString.get(mobile);
+        if(rCode == null || !rCode.equals(code)){
+            return CommonResult.failed("验证码错误");
+        }
         Customer c = new Customer();
         c.setMobile(mobile);
         c.setRoleName(roleName);
         c.setLoginIn(loginIn);
-        c.setPassword(pwd);
+        c.setPassword(AESUtil.AESEncode(pwd));
+        customerMapper.insertAllColumn(c);
+        return CommonResult.success("创建成功");
+    }
+
+    @Override
+    public CommonResult<Object> signIn(CustomerParam param){
+        String rCode = (String)redisString.get(param.getMobile());
+        if(rCode == null || !rCode.equals(param.getCode())){
+            return CommonResult.failed("验证码错误");
+        }
+
+        String name = customerMapper.checkName(param.getLoginIn());
+        if(name != null){
+            return CommonResult.failed("登录账户名已存在");
+        }
+        Customer c = new Customer();
+        BeanUtils.copyProperties(param,c);
+        c.setPassword(AESUtil.AESEncode(param.getPassword()));
         customerMapper.insert(c);
         return CommonResult.success("创建成功");
     }
@@ -41,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
         for (int i = 0; i < 6; i++ ) {
             sb.append(ran.nextInt(10));
         }
-        RedisUtil.set(mobile,sb.toString(),300);
+        redisString.set(mobile,sb.toString(),300);
         return CommonResult.success(sb.toString());
     }
 
