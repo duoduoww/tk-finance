@@ -41,4 +41,8 @@
     limit 1
   </select>
 
+  <select id="login" resultMap="BaseResultMap" >
+    select * from f_customer where login_in = #{loginIn} and password = #{password}
+  </select>
+
 </mapper>

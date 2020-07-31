@@ -19,4 +19,5 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 
     String checkName(@Param("loginIn") String loginIn);
 
+    Customer login(@Param("loginIn") String loginIn, @Param("password") String password);
 }

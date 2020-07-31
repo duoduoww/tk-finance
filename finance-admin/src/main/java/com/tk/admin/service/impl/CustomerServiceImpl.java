@@ -7,12 +7,16 @@ import com.tk.admin.mapper.CustomerMapper;
 import com.tk.admin.service.CustomerService;
 import com.tk.admin.util.AESUtil;
 import com.tk.admin.util.MyRedisUtils;
+import com.tk.admin.util.SecurityUtils;
 import com.tk.common.result.CommonResult;
+import com.tk.admin.jwt.JwtAuthenticatioToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -27,6 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private MyRedisUtils.redisString redisString;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Override
     public CommonResult<Object> signIn(String mobile, String loginIn, String pwd, String roleName, Integer code) {
@@ -81,9 +88,28 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CommonResult<String> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize) {
+    public CommonResult<Object> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize) {
         Page<Customer> page = new Page<>(pageNo,pageSize);
         customerMapper.queryProductList(page, memberId, search);
-        return null;
+        return CommonResult.success(page);
+    }
+
+    @Override
+    public Customer findByUsername(String username) {
+        Customer c = new Customer();
+        c.setLoginIn(username);
+        return customerMapper.selectOne(c);
+    }
+
+    @Override
+    public CommonResult<Object> login(String loginIn, String password, HttpServletRequest request) {
+        password = AESUtil.AESEncode(password);
+        Customer c = customerMapper.login(loginIn,password);
+        if(c == null){
+            return CommonResult.failed("账户或密码错误");
+        }
+
+        JwtAuthenticatioToken token = SecurityUtils.login(request, loginIn, password, authenticationManager);
+        return CommonResult.success(token);
     }
 }

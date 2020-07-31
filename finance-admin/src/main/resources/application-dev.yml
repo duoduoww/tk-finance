@@ -5,6 +5,7 @@ server:
 
 spring:
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/finance?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
@@ -40,6 +41,7 @@ spring:
         url-pattern: /druid/*
         login-username: admin
         login-password: 123456
+
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -53,7 +55,9 @@ spring:
         max-idle: 500
         min-idle: 0
         time-between-eviction-runs:  100
-
+  jpa:
+    show-sql: true # 默认false，在日志里显示执行的sql语句
+    database: mysql
 
 
 # 设置关联的表名
@@ -61,16 +65,16 @@ mybatis-plus:
   global-config:
     db-column-underline: false
   #  配置mapper xml 文件所在路径
-  mapper-locations: classpath*:com/arrange/mini/mapper/**/*.xml
+  mapper-locations: classpath*:com/tk/admin/mapper/*.xml
   # 配置映射类所在包名
-  type-aliases-package: com.arrange.mini.mapper
+  type-aliases-package: com.tk.admin.mapper
   configuration:
     use-actual-param-name: false
 
 logging:
   level:
     learning: debug
-    com.arrange.mini.mapper: debug
+    com.tk.admin.mapper: debug
     org:
       springframework:
         web:
@@ -81,7 +85,7 @@ logging:
                   RequestMappingHandlerMapping: trace
 mybatis:
   #  配置mapper xml 文件所在路径
-  mapper-locations: classpath*:com/tk/admin/mapper/**/*.xml
+  mapper-locations: classpath*:com/tk/admin/mapper/*.xml
   # 配置映射类所在包名
   type-aliases-package: com.tk.admin.mapper
   configuration:

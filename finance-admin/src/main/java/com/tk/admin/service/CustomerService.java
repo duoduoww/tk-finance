@@ -1,7 +1,10 @@
 package com.tk.admin.service;
 
+import com.tk.admin.domain.Customer;
 import com.tk.admin.dto.CustomerParam;
 import com.tk.common.result.CommonResult;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author kzc
@@ -39,5 +42,9 @@ public interface CustomerService {
      * @param memberId 负责人id
      * @return 客户列表
      */
-    CommonResult<String> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize);
+    CommonResult<Object> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize);
+
+    Customer findByUsername(String username);
+
+    CommonResult<Object> login(String loginIn, String password, HttpServletRequest request);
 }

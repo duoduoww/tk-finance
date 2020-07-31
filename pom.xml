@@ -20,6 +20,8 @@
     </properties>
     <modules>
         <module>finance-mbg</module>
+        <module>finance-common</module>
+        <module>finance-admin</module>
     </modules>
     <dependencies>
         <dependency>
@@ -35,7 +37,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!--消息插件-->

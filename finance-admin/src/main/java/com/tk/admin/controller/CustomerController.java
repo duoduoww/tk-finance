@@ -10,10 +10,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author kzc
  */
@@ -57,6 +60,21 @@ public class CustomerController {
         return customerService.signIn(param);
     }
 
+    @PostMapping("/login")
+    @ApiOperation("/用户登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginIn", value = "登录账户", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "登录密码", required = true,paramType = "query")
+    })
+    public CommonResult<Object> login(@RequestParam String loginIn, @RequestParam String password, HttpServletRequest request){
+
+        if(password.length() < 6){
+            return CommonResult.failed("密码长度小于6");
+        }
+        return customerService.login(loginIn,password, request);
+    }
+
+
     @GetMapping("/phoneCode")
     @ApiOperation(value = "获取手机验证码")
     @ApiImplicitParams({
@@ -74,9 +92,8 @@ public class CustomerController {
 
     @GetMapping("/updateCustomer")
     @ApiOperation(value = "更改客户信息")
-    @ApiImplicitParam(name = "mobile",value = "手机电话",required = true)
     @ResponseBody
-    public CommonResult<Object> updateCustomer(@ApiIgnore @RequestBody CustomerParam param){
+    public CommonResult<Object> updateCustomer(@ApiIgnore @ModelAttribute CustomerParam param){
 
         return customerService.updateCustomer(param);
     }
@@ -84,13 +101,13 @@ public class CustomerController {
     @GetMapping("/customerList")
     @ApiOperation(value = "客户列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "mobile", value = "负责人id", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "search", value = "search", paramType = "query"),
-            @ApiImplicitParam(name = "pageNo", value = "第几页", paramType = "query"),
-            @ApiImplicitParam(name = "pageSize", value = "每页行数", paramType = "query")
+            @ApiImplicitParam(name = "memberId", value = "负责人id", paramType = "query",required = false),
+            @ApiImplicitParam(name = "search", value = "search", paramType = "query",required = false),
+            @ApiImplicitParam(name = "pageNo", value = "第几页", paramType = "query" , defaultValue = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "每页行数", paramType = "query",defaultValue = "10")
     })
     @ResponseBody
-    public CommonResult<String> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize){
+    public CommonResult<Object> customerList(@RequestParam(name = "memberId", defaultValue = "") Integer memberId, @RequestParam String search, @RequestParam Integer pageNo, @RequestParam Integer pageSize){
 
         return customerService.customerList(memberId,search, pageNo, pageSize);
     }

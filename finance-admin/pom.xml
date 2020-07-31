@@ -11,6 +11,7 @@
     <artifactId>finance-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>finance-admin</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -30,6 +31,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.tk.mbg</groupId>
+            <artifactId>finance-mbg</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.2.Final</version>
@@ -42,12 +48,6 @@
             <version>1.2.0</version>
         </dependency>
 
-        <!--连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.8</version>
-        </dependency>
         <!-- Druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -112,6 +112,26 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
+        </dependency>
+
+        <!--java调用JNA动态库dll/so-->
+        <dependency>
+            <groupId>com.sun.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>3.0.9</version>
+        </dependency>
+
+        <!-- jwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
         </dependency>
 
     </dependencies>

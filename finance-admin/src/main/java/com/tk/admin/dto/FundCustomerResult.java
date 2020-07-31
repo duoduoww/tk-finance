@@ -2,6 +2,7 @@ package com.tk.admin.dto;
 
 import com.tk.admin.domain.FundCustomer;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
  * @author: kzc
  * @create: 2020-07-13 18:05
  **/
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class FundCustomerResult extends FundCustomer {
 
