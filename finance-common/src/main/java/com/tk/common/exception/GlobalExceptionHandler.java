@@ -19,8 +19,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public CommonResult<Object> defaultErrorHandler(HttpServletRequest req, ExceptionHandler e) throws Exception {
-
+    public CommonResult<Object> defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        e.printStackTrace();
         if(e instanceof  org.springframework.web.servlet.NoHandlerFoundException)
         {
             return CommonResult.validateFailed();

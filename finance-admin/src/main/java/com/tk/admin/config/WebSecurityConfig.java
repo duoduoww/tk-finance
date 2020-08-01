@@ -1,7 +1,8 @@
 package com.tk.admin.config;
 
-import com.tk.admin.filter.JwtAuthenticationFilter;
-import com.tk.admin.filter.JwtLoginFilter;
+import com.tk.admin.security.JwtAuthenticationFilter;
+import com.tk.admin.security.JwtLoginFilter;
+import com.tk.admin.security.JwtAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

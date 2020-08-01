@@ -1,8 +1,8 @@
-package com.tk.admin.filter;
+package com.tk.admin.security;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.tk.admin.jwt.JwtAuthenticatioToken;
+import com.tk.admin.security.JwtAuthenticatioToken;
 import com.tk.admin.util.HttpUtils;
 import com.tk.admin.util.JwtTokenUtils;
 import org.springframework.security.authentication.AuthenticationManager;

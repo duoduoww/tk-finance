@@ -1,4 +1,4 @@
-package com.tk.admin.jwt;
+package com.tk.admin.security;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;

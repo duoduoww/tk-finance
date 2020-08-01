@@ -1,7 +1,7 @@
 package com.tk.admin.util;
 
-import com.tk.admin.jwt.GrantedAuthorityImpl;
-import com.tk.admin.jwt.JwtAuthenticatioToken;
+import com.tk.admin.security.GrantedAuthorityImpl;
+import com.tk.admin.security.JwtAuthenticatioToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

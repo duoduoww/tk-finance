@@ -9,7 +9,7 @@ import com.tk.admin.util.AESUtil;
 import com.tk.admin.util.MyRedisUtils;
 import com.tk.admin.util.SecurityUtils;
 import com.tk.common.result.CommonResult;
-import com.tk.admin.jwt.JwtAuthenticatioToken;
+import com.tk.admin.security.JwtAuthenticatioToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
