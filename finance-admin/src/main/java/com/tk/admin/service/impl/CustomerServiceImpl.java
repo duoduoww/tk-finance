@@ -90,8 +90,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CommonResult<Object> customerList(Integer memberId, String search, Integer pageNo, Integer pageSize) {
         Page<Customer> page = new Page<>(pageNo,pageSize);
-        customerMapper.queryProductList(page, memberId, search);
-        return CommonResult.success(page);
+        List<Customer>  customerList = customerMapper.queryProductList(page, memberId, search);
+        return CommonResult.success(customerList);
     }
 
     @Override

@@ -101,13 +101,13 @@ public class CustomerController {
     @GetMapping("/customerList")
     @ApiOperation(value = "客户列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "memberId", value = "负责人id", paramType = "query",required = false),
-            @ApiImplicitParam(name = "search", value = "search", paramType = "query",required = false),
+            @ApiImplicitParam(name = "memberId", value = "负责人id", paramType = "query",defaultValue = "0"),
+            @ApiImplicitParam(name = "search", value = "search", paramType = "query",defaultValue = ""),
             @ApiImplicitParam(name = "pageNo", value = "第几页", paramType = "query" , defaultValue = "1"),
             @ApiImplicitParam(name = "pageSize", value = "每页行数", paramType = "query",defaultValue = "10")
     })
     @ResponseBody
-    public CommonResult<Object> customerList(@RequestParam(name = "memberId", defaultValue = "") Integer memberId, @RequestParam String search, @RequestParam Integer pageNo, @RequestParam Integer pageSize){
+    public CommonResult<Object> customerList(@RequestParam Integer memberId, @RequestParam String search, @RequestParam Integer pageNo, @RequestParam Integer pageSize){
 
         return customerService.customerList(memberId,search, pageNo, pageSize);
     }
