@@ -42,8 +42,8 @@ public class FundCustomerController {
         return fundCustomerService.addFundCustomer(customerId, fundId, memberId);
     }
 
-    @GetMapping("/insert")
-    @ApiOperation(value = "新增客户基金")
+    @GetMapping("/list")
+    @ApiOperation(value = "客户基金列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "customerId", value = "客户id", paramType = "query"),
             @ApiImplicitParam(name = "fundId", value = "基金id", paramType = "query"),
