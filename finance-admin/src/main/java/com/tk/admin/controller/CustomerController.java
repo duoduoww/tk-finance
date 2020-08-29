@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -63,15 +62,15 @@ public class CustomerController {
     @PostMapping("/login")
     @ApiOperation("/用户登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "loginIn", value = "登录账户", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "username", value = "登录账户", required = true, paramType = "query"),
             @ApiImplicitParam(name = "password", value = "登录密码", required = true,paramType = "query")
     })
-    public CommonResult<Object> login(@RequestParam String loginIn, @RequestParam String password, HttpServletRequest request){
+    public CommonResult<Object> login(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
 
         if(password.length() < 6){
             return CommonResult.failed("密码长度小于6");
         }
-        return customerService.login(loginIn,password, request);
+        return customerService.login(username,password, request);
     }
 
 
@@ -93,7 +92,7 @@ public class CustomerController {
     @GetMapping("/updateCustomer")
     @ApiOperation(value = "更改客户信息")
     @ResponseBody
-    public CommonResult<Object> updateCustomer(@ApiIgnore @ModelAttribute CustomerParam param){
+    public CommonResult<Object> updateCustomer(@ModelAttribute CustomerParam param){
 
         return customerService.updateCustomer(param);
     }

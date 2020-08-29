@@ -200,6 +200,26 @@ public class MyRedisUtils {
         }
 
         /**
+         * 设置hash值
+         */
+        public void addHash(String key, String field, String value) {
+            redisTemplate.opsForHash().put(key, field, value);
+        }
+
+
+        /**
+         * 获取hash值
+         */
+        public String getHashValue(String key, String field) {
+            Object value = redisTemplate.opsForHash().get(key, field);
+            if (value == null) {
+                return null;
+            }
+
+            return (String) value;
+        }
+
+        /**
          * 加强版set，可设置时间
          * @param key 键
          * @param map 对应的多个键值
